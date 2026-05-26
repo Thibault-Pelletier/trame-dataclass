@@ -2,13 +2,18 @@ from trame.ui.html import DivLayout
 
 from trame.app import TrameApp
 from trame.widgets import dataclass, html
-from trame_dataclass.v2 import StateDataModel, Sync
+from trame_dataclass.v2 import StateDataModel, Sync, copy
 
 
 class User(StateDataModel):
     first_name = Sync(str, "John")
     last_name = Sync(str, "Doe")
     age = Sync(int, 1)
+
+    def clone(self):
+        cloned_instance = self.new_instance()
+        copy(self, cloned_instance)
+        return cloned_instance
 
 
 class AddressBook(StateDataModel):
